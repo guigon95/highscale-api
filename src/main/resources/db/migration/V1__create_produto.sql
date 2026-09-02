@@ -1,0 +1,5 @@
+CREATE TABLE produto (
+    id UUID PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    preco NUMERIC(12, 2) NOT NULL
+);

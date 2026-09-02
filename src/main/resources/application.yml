@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: highscale-api
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/highscale?preparedStatementCacheQueries=256
+    username: highscale
+    password: highscale
+    pool:
+      enabled: true
+      initial-size: 16
+      max-size: 32
+      max-idle-time: 30s
+      max-acquire-time: 2s
+      max-life-time: 30m
+  datasource:
+    url: jdbc:postgresql://localhost:5432/highscale
+    username: highscale
+    password: highscale
+    hikari:
+      pool-name: highscale-flyway
+      maximum-pool-size: 2
+      minimum-idle: 1
+  flyway:
+    enabled: true
+
+app:
+  cache:
+    produtos:
+      enabled: true
+      maximum-size: 10000
+      expire-after-write: 5m
+
+logging:
+  level:
+    io.r2dbc: warn
+    io.netty: warn
+    reactor.netty: warn
+    org.springframework.r2dbc: warn
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}
